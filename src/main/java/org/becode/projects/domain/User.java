@@ -1,4 +1,6 @@
-package org.becode.projects;
+package org.becode.projects.domain;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -6,6 +8,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="user")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
 
 	@Id
@@ -22,7 +25,7 @@ public class User {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
