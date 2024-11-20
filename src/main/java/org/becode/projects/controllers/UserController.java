@@ -5,9 +5,11 @@ import java.util.List;
 import org.becode.projects.domain.User;
 import org.becode.projects.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,5 +41,15 @@ public class UserController {
 	@PostMapping("/users")
 	public String createNewUser(@RequestBody User user) {
 		return service.createNewUser(user);
+	}
+	
+	@DeleteMapping("/users/{id}")
+	public String deleteSpecificUser(@PathVariable long id) {
+		return service.deleteUser(id);
+	}
+	
+	@PutMapping("/users")
+	public String updateUser(@RequestBody User user) {
+		return service.updateUser(user);
 	}
 }

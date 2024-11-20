@@ -38,4 +38,14 @@ public class UserService {
 		rep.save(user);
 		return "New user successfully created";
 	}
+	
+	public String deleteUser(long id) {
+		rep.deleteById(id);
+		return String.format("User with id %d successfully removed", id);
+	}
+	
+	public String updateUser(User user) {
+		rep.save(user);
+		return "User successfully updated";
+	}
 }
