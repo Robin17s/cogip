@@ -7,6 +7,7 @@ import org.becode.projects.domain.User;
 import org.becode.projects.services.CompanyService;
 import org.becode.projects.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,26 +26,31 @@ public class CompanyController {
 		
 	}
 	
+	@Secured({"ROLE_ADMIN", "ROLE_ACCOUNTANT", "ROLE_INTERN"})
 	@GetMapping("/companies")
 	public List<Company> getAllCompanies(){
 		return service.getAllCompanies();
 	}
 	
+	@Secured({"ROLE_ADMIN", "ROLE_ACCOUNTANT", "ROLE_INTERN"})
 	@GetMapping("/companies/{id}")
 	public Company getSpecificCompany(@PathVariable int id) {
 		return service.getSpecificCompany(id);
 	}
 	
+	@Secured({"ROLE_ADMIN", "ROLE_ACCOUNTANT"})
 	@PostMapping("/companies")
 	public String createNewCompany(@RequestBody Company company) {
 		return service.createNewCompany(company);
 	}
 	
+	@Secured({"ROLE_ADMIN", "ROLE_ACCOUNTANT"})
 	@DeleteMapping("/companies/{id}")
 	public String deleteSpecificCompany(@PathVariable int id) {
 		return service.deleteCompany(id);
 	}
 	
+	@Secured({"ROLE_ADMIN", "ROLE_ACCOUNTANT"})
 	@PutMapping("/companies")
 	public String updateCompany(@RequestBody Company company) {
 		return service.updateCompany(company);
