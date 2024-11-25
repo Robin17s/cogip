@@ -55,4 +55,7 @@ public class Invoice {
 		this.invoice_contact_id = invoice_contact_id;
 	}
 	
+	public String toString() {
+		return String.format("Invoice %d, %s", id, timestamp);
+	}
 }

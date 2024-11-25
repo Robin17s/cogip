@@ -82,4 +82,7 @@ public class Contact {
 		this.contact_company_id = contact_company_id;
 	}
 	
+	public String toString() {
+		return String.format("%s %s, email: %s", firstname, lastname, email);
+	}
 }
