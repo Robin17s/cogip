@@ -38,19 +38,19 @@ public class ContactController {
 		return service.getSpecificContact(id);
 	}
 	
-	@Secured({"ROLE_ADMIN", "ROLE_ACCOUNTANT"})
+	@Secured({"ROLE_ADMIN"})
 	@PostMapping("/contacts")
 	public String createNewContact(@RequestBody Contact contact) {
 		return service.createNewContact(contact);
 	}
 	
-	@Secured({"ROLE_ADMIN", "ROLE_ACCOUNTANT"})
+	@Secured({"ROLE_ADMIN"})
 	@DeleteMapping("/contacts/{id}")
 	public String deleteSpecificContact(@PathVariable int id) {
 		return service.deleteContact(id);
 	}
 	
-	@Secured({"ROLE_ADMIN", "ROLE_ACCOUNTANT"})
+	@Secured({"ROLE_ADMIN"})
 	@PutMapping("/contacts")
 	public String updateContact(@RequestBody Contact contact) {
 		return service.updateContact(contact);
