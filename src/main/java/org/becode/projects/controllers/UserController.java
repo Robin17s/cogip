@@ -35,6 +35,11 @@ public class UserController {
 		return (CsrfToken) request.getAttribute("_csrf");
 	}
 	
+	@PostMapping("/login")
+	public String login(@RequestBody User user) {
+		return service.verify(user);
+	}
+	
 	@GetMapping("/")
 	public String test() {
 		return "Hello world";
