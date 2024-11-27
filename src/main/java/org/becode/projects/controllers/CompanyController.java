@@ -31,9 +31,8 @@ public class CompanyController {
 	@Secured({"ROLE_ADMIN", "ROLE_ACCOUNTANT", "ROLE_INTERN"})
 	@GetMapping("/companies")
 	public List<Company> getAllCompanies(@RequestParam(name="type", required = false) String type){
-		List<Company> list = new ArrayList<>();
 		if(type != null) {
-			return list.stream().filter(company -> company.getType().equals(type)).toList();
+			return service.getAllCompanies().stream().filter(company -> company.getType().equals(type)).toList();
 		}
 		
 		return service.getAllCompanies();
