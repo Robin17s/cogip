@@ -2,7 +2,10 @@ package org.becode.projects.controllers;
 
 import java.util.List;
 
+import org.becode.projects.domain.Company;
 import org.becode.projects.domain.Invoice;
+import org.becode.projects.services.CompanyService;
+import org.becode.projects.services.ContactService;
 import org.becode.projects.services.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -20,20 +23,36 @@ public class InvoiceController {
 	@Autowired
 	private InvoiceService service;
 	
+	@Autowired
+	private ContactService contactService;
+	
+	@Autowired
+	private CompanyService companyService;
+	
 	public InvoiceController() {
 		
 	}
 	
 	@Secured({"ROLE_ADMIN", "ROLE_ACCOUNTANT", "ROLE_INTERN"})
 	@GetMapping("/invoices")
-	public List<Invoice> getAllInvoices(){
-		return service.getAllInvoices();
+	public String getAllInvoices(){
+		String string = "";
+		for(Invoice invoice : service.getAllInvoices()) {
+			string += invoice.toString() + "\n";
+			string = printRelatedContact(string, invoice.getInvoice_contact_id());
+			string = printRelatedCompany(string, invoice.getInvoice_company_id());			
+		}
+		return string;
 	}
 	
 	@Secured({"ROLE_ADMIN", "ROLE_ACCOUNTANT", "ROLE_INTERN"})
 	@GetMapping("/invoices/{id}")
-	public Invoice getSpecificInvoice(@PathVariable int id) {
-		return service.getSpecificInvoice(id);
+	public String getSpecificInvoice(@PathVariable int id) {
+		String string = "";
+		string += service.getSpecificInvoice(id).toString() + "\n";
+		string = printRelatedContact(string, id);
+		string = printRelatedCompany(string, id);
+		return string;
 	}
 	
 	@Secured({"ROLE_ADMIN", "ROLE_ACCOUNTANT"})
@@ -52,5 +71,16 @@ public class InvoiceController {
 	@PutMapping("/invoices")
 	public String updateInvoice(@RequestBody Invoice invoice) {
 		return service.updateInvoice(invoice);
+	}
+	
+	private String printRelatedContact(String string, int id) {
+		string += contactService.getSpecificContact(id).toString() + "\n";
+		return string;
+	}
+	
+	private String printRelatedCompany(String string, int id) {
+		Company company = companyService.getSpecificCompany(id);
+		string += company.toString() + " type: " + company.getType() + "\n";
+		return string;
 	}
 }
