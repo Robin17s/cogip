@@ -1,5 +1,6 @@
 package org.becode.projects.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.becode.projects.domain.Company;
@@ -29,7 +30,12 @@ public class CompanyController {
 	
 	@Secured({"ROLE_ADMIN", "ROLE_ACCOUNTANT", "ROLE_INTERN"})
 	@GetMapping("/companies")
-	public List<Company> getAllCompanies(){
+	public List<Company> getAllCompanies(@RequestParam(name="type", required = false) String type){
+		List<Company> list = new ArrayList<>();
+		if(type != null) {
+			return list.stream().filter(company -> company.getType().equals(type)).toList();
+		}
+		
 		return service.getAllCompanies();
 	}
 	
