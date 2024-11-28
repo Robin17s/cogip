@@ -43,7 +43,7 @@ public class UserService {
 //			System.out.println("error: " + e.getMessage());
 //		}
 //		return user;
-		return rep.findById(id).orElseThrow(() -> new IllegalArgumentException("User doesn't exist"));
+		return rep.getById(1l);
 	}
 	
 	public String createNewUser(User user) {
