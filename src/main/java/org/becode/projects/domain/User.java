@@ -53,4 +53,8 @@ public class User {
 		this.role = role;
 	}
 	
+	public String toString() {
+		return String.format("User with name: %s id: %d role: %s", username, id, role);
+	}
+	
 }
