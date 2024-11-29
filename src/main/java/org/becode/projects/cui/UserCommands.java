@@ -17,7 +17,7 @@ public class UserCommands {
 	
 	@ShellMethod(key = "hello", value="gives you a hello")
 	public String hello() {
-		return userController.test();
+		return userController.login();
 	}
 	
 }

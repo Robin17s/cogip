@@ -3,6 +3,7 @@ package org.becode.projects;
 import java.io.IOException;
 
 import org.becode.projects.services.JWTService;
+import org.becode.projects.services.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

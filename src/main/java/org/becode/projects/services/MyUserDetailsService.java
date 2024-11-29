@@ -1,6 +1,7 @@
-package org.becode.projects;
+package org.becode.projects.services;
 
 import org.becode.projects.domain.User;
+import org.becode.projects.domain.UserPrincipal;
 import org.becode.projects.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

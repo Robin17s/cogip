@@ -1,9 +1,8 @@
-package org.becode.projects;
+package org.becode.projects.domain;
 
 import java.util.Collection;
 import java.util.Collections;
 
-import org.becode.projects.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

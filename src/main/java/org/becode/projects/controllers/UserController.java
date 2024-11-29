@@ -47,10 +47,13 @@ public class UserController {
 	
 	@Secured("ROLE_ADMIN")
 	@GetMapping("/users")
-	public List<User> getAllUsers(){
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//	    System.out.println("User roles: " + authentication.getAuthorities());
-		return service.getAllUsers();
+	public String getAllUsers(){
+//		return service.getAllUsers();
+		String string = "";
+		for(User user : service.getAllUsers()) {
+			string += user.toString() + "\n";
+		}
+		return string;
 	}
 	
 	@Secured("ROLE_ADMIN")
