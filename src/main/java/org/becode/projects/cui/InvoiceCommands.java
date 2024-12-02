@@ -22,7 +22,8 @@ public class InvoiceCommands {
 	
 	private static final String BASE_URL = "http://localhost:8080";
 	
-	private String token = null;
+	@Autowired
+	private UserCommands userCommands;
 	
 	public InvoiceCommands() {
 		
@@ -39,12 +40,12 @@ public class InvoiceCommands {
 	}
 	
 	private String getAndDeleteRequest(String url, String request) {
-		if(token == null) {
+		if(userCommands.getToken() == null) {
 			return "You must login first to do this command";
 		}
 		
 		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.set("Authorization", "Bearer " + token);
+		httpHeaders.set("Authorization", "Bearer " + userCommands.getToken());
 		
 		HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
 		ResponseEntity<String> response;
@@ -77,12 +78,12 @@ public class InvoiceCommands {
 	}
 	
 	private String createAndUpdateRequest(Invoice invoice, String url, String request) {
-		if(token == null) {
+		if(userCommands.getToken() == null) {
 			return "You must login first to do this command";
 		}
 		
 		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.set("Authorization", "Bearer " + token);
+		httpHeaders.set("Authorization", "Bearer " + userCommands.getToken());
 		
 		HttpEntity<Invoice> entity = new HttpEntity<>(invoice, httpHeaders);
 		ResponseEntity<String> response;

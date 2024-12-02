@@ -62,3 +62,9 @@
 1733136988671:createnewuser --id 4 --username bob --password bob --role intern
 1733137035096:updateuser --id 4 --username jef --password bob --role intern
 1733137060730:deletespecificuser --id 4
+1733146910536:login --username robin --password pass
+1733146925277:getallinvoices
+1733146975647:getspecificinvoice --id 1
+1733147120613:createnewinvoice --id 5 --companyId 1 --contactId 1
+1733147183809:updateinvoice --id 5 --companyId 1 --contactId 2
+1733147212672:deletespecificinvoice --id 5
