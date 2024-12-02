@@ -2,8 +2,8 @@ package org.becode.projects.cui;
 
 import java.time.LocalDateTime;
 
-import org.becode.projects.domain.Invoice;
-import org.becode.projects.domain.User;
+import org.becode.projects.domain.Company;
+import org.becode.projects.domain.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -15,7 +15,7 @@ import org.springframework.shell.standard.ShellOption;
 import org.springframework.web.client.RestTemplate;
 
 @ShellComponent
-public class InvoiceCommands {
+public class ContactCommands {
 
 	@Autowired
 	private RestTemplate restTemplate;
@@ -25,18 +25,18 @@ public class InvoiceCommands {
 	@Autowired
 	private UserCommands userCommands;
 	
-	public InvoiceCommands() {
+	public ContactCommands() {
 		
 	}
 	
-	@ShellMethod(key="getallinvoices", value="Get complete list of invoices from database")
-	public String getAllInvoices() {
-		return getAndDeleteRequest(BASE_URL + "/invoices", "get");
+	@ShellMethod(key="getallcontacts", value="Get complete list of contacts from database")
+	public String getAllContacts() {
+		return getAndDeleteRequest(BASE_URL + "/contacts", "get");
 	}
 	
-	@ShellMethod(key="getspecificinvoice", value="get info of invoice of given id")
-	public String getSpecificInvoice(@ShellOption int id) {
-		return getAndDeleteRequest(BASE_URL + "/invoices/" + id, "get");
+	@ShellMethod(key="getspecificcontact", value="get info of contact of given id")
+	public String getSpecificContact(@ShellOption int id) {
+		return getAndDeleteRequest(BASE_URL + "/contacts/" + id, "get");
 	}
 	
 	private String getAndDeleteRequest(String url, String request) {
@@ -60,24 +60,24 @@ public class InvoiceCommands {
 		return response.getBody();
 	}
 	
-	@ShellMethod(key="createnewinvoice", value="make a new invoice and save it in database")
-	public String createNewInvoice(@ShellOption int id,@ShellOption int companyid,@ShellOption int contactid) {
-		Invoice invoice = new Invoice(id, companyid, contactid, LocalDateTime.now());
-		return createAndUpdateRequest(invoice, BASE_URL + "/invoices", "post");
+	@ShellMethod(key="createnewcontact", value="make a new contact and save it in database")
+	public String createNewContact(@ShellOption int id,@ShellOption String firstname,@ShellOption String lastname, @ShellOption String phone, @ShellOption String email, @ShellOption int companyid) {
+		Contact contact = new Contact(id, firstname, lastname, phone, email, companyid, LocalDateTime.now());
+		return createAndUpdateRequest(contact, BASE_URL + "/contacts", "post");
 	}
 	
-	@ShellMethod(key="deletespecificinvoice", value="Change data of an invoice and save it in database")
-	public String deleteSpecificInvoice(@ShellOption int id) {
-		return getAndDeleteRequest(BASE_URL + "/invoices/" + id, "delete");
+	@ShellMethod(key="deletespecificcontact", value="Change data of an contact and save it in database")
+	public String deleteSpecificContact(@ShellOption int id) {
+		return getAndDeleteRequest(BASE_URL + "/contacts/" + id, "delete");
 	}
 	
-	@ShellMethod(key="updateinvoice", value="Change data of an invoice and save it in database")
-	public String updateInvoice(@ShellOption int id, @ShellOption int companyid, @ShellOption int contactid) {
-		Invoice invoice = new Invoice(id, companyid, contactid, LocalDateTime.now());
-		return createAndUpdateRequest(invoice, BASE_URL + "/invoices", "put");
+	@ShellMethod(key="updatecontact", value="Change data of an contact and save it in database")
+	public String updateContact(@ShellOption int id,@ShellOption String firstname,@ShellOption String lastname, @ShellOption String phone, @ShellOption String email, @ShellOption int companyid) {
+		Contact contact = new Contact(id, firstname, lastname, phone, email, companyid, LocalDateTime.now());
+		return createAndUpdateRequest(contact, BASE_URL + "/contacts", "put");
 	}
 	
-	private String createAndUpdateRequest(Invoice invoice, String url, String request) {
+	private String createAndUpdateRequest(Contact contact, String url, String request) {
 		if(userCommands.getToken() == null) {
 			return "You must login first to do this command";
 		}
@@ -85,7 +85,7 @@ public class InvoiceCommands {
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.set("Authorization", "Bearer " + userCommands.getToken());
 		
-		HttpEntity<Invoice> entity = new HttpEntity<>(invoice, httpHeaders);
+		HttpEntity<Contact> entity = new HttpEntity<>(contact, httpHeaders);
 		ResponseEntity<String> response;
 		if(request.equals("post")) {
 			response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);						
