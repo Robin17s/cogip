@@ -43,7 +43,7 @@ public class UserService {
 //			System.out.println("error: " + e.getMessage());
 //		}
 //		return user;
-		return rep.getById(1l);
+		return rep.getById(id);
 	}
 	
 	public String createNewUser(User user) {

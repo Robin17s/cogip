@@ -58,8 +58,10 @@ public class UserController {
 	
 	@Secured("ROLE_ADMIN")
 	@GetMapping("/users/{id}")
-	public User getSpecificUser(@PathVariable long id) {
-		return service.getSpecificUser(id);
+	public String getSpecificUser(@PathVariable long id) {
+		String string = "";
+		string += service.getSpecificUser(id) + "\n";
+		return string;
 	}
 	
 	@Secured("ROLE_ADMIN")

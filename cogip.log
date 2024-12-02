@@ -4,3 +4,36 @@
 1732808642498:quit
 1732809399573:hello
 1732868260542:stacktrace
+1732873796193:help
+1732873991126:getalluser
+1732874010264:getallusers
+1732874043791:stacktrace
+1732874068775:login
+1732874146951:login --username=fieu --password=fyezu
+1732874191332:login --username=robin --password=pass
+1732875236705:login --username = robin --password = pass
+1732875274972:stacktrace
+1732876387699:login --username robin --password pass
+1732876431080:getallusers
+1732876443847:stacktrace
+1732890935689:getallusers
+1732891128733:login --username robin --password frue
+1732891160006:login --username robin --password pass
+1732891176443:getallusers
+1732891230207:login --username guido --password pass
+1732891247869:getallusers
+1732891265535:stacktrace
+1732892386869:login --username robin --password pass
+1732892425510:getspecificuser --id 1
+1732892466412:getallusers
+1732892736564:login --username robin --password pass
+1732892762605:getspecificuser --id 2
+1732892805919:getspecificuser --id 1
+1732892813979:getspecificuser --id 3
+1732893162278:login --username robin --password pass
+1732893180074:getspecificuser --id 2
+1733126565115:login --username robin --password pass
+1733126580015:getallusers
+1733126631909:getspecificuser --id 2
+1733127381719:login --username robin --password pass
+1733127409002:getspecificuser --id 2
