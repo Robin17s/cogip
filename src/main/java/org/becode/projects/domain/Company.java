@@ -25,6 +25,14 @@ public class Company {
 		
 	}
 
+	public Company(int id, String name, String country, String vat, String type) {
+		this.id = id;
+		this.name = name;
+		this.country = country;
+		this.vat = vat;
+		this.type = type;
+	}
+
 	public int getId() {
 		return id;
 	}
