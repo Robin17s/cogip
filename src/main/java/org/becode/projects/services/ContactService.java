@@ -24,21 +24,37 @@ public class ContactService {
 	}
 	
 	public Contact getSpecificContact(int id) {
-		return rep.getById(id);
+		if(controlIdExists(id)) {
+			return rep.getById(id);			
+		}
+		throw new IllegalArgumentException(String.format("Contact with id %d doesn't exist", id));
 	}
 	
 	public String createNewContact(Contact contact) {
+		if(controlIdExists(contact.getId())) {
+			return "Company with this id already exists";
+		}
 		rep.save(contact);
 		return "New contact successfully created";
 	}
 	
 	public String deleteContact(int id) {
-		rep.deleteById(id);
-		return String.format("Contact with id %d successfully removed", id);
+		if(controlIdExists(id)) {
+			rep.deleteById(id);
+			return String.format("Contact with id %d successfully removed", id);			
+		}
+		return "Contact with this id doesn't exists";
 	}
 	
 	public String updateContact(Contact contact) {
-		rep.save(contact);
-		return "Contact successfully updated";
+		if(controlIdExists(contact.getId())) {
+			rep.save(contact);
+			return "Contact successfully updated";			
+		}
+		return "Contact with this id doesn't exists";
+	}
+	
+	private boolean controlIdExists(int id) {
+		return rep.existsById(id);
 	}
 }

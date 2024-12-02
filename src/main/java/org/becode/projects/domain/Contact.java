@@ -26,8 +26,7 @@ public class Contact {
 		
 	}
 
-	public Contact(int id, String firstname, String lastname, String phone, String email, LocalDateTime timestamp,
-			int contact_company_id) {
+	public Contact(int id, String firstname, String lastname, String phone, String email, int contact_company_id, LocalDateTime timestamp) {
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
