@@ -68,3 +68,11 @@
 1733147120613:createnewinvoice --id 5 --companyId 1 --contactId 1
 1733147183809:updateinvoice --id 5 --companyId 1 --contactId 2
 1733147212672:deletespecificinvoice --id 5
+1733149418841:login --username robin --password pass
+1733149428988:getallcompanies
+1733149486500:login --username robin --password pass
+1733149495474:getallcompanies
+1733149528912:getspecificcompany --id 1
+1733149631700:createnewcompany --id 3 --name vvf --country china --vat hb --type client
+1733149708612:updatecompany --id 3 --name vvf --country france --vat hb --type client
+1733149731360:deletespecificcompany --id 3

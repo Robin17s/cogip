@@ -25,12 +25,13 @@ public class Company {
 		
 	}
 
-	public Company(int id, String name, String country, String vat, String type) {
+	public Company(int id, String name, String country, String vat, String type, LocalDateTime time) {
 		this.id = id;
 		this.name = name;
 		this.country = country;
 		this.vat = vat;
 		this.type = type;
+		this.timestamp = time;
 	}
 
 	public int getId() {
