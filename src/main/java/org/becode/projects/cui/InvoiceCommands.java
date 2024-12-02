@@ -1,19 +1,18 @@
 package org.becode.projects.cui;
 
+import org.becode.projects.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.becode.projects.controllers.UserController;
-import org.becode.projects.domain.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import org.springframework.web.client.RestTemplate;
 
 @ShellComponent
-public class UserCommands {
+public class InvoiceCommands {
 
 	@Autowired
 	private RestTemplate restTemplate;
@@ -22,7 +21,7 @@ public class UserCommands {
 	
 	private String token = null;
 	
-	public UserCommands() {
+	public InvoiceCommands() {
 		
 	}
 	
@@ -102,9 +101,4 @@ public class UserCommands {
 		 
 		return response.getBody();
 	}
-	
-	public String getToken() {
-		return token;
-	}
-	
 }

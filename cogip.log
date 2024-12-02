@@ -56,3 +56,9 @@
 1733134477710:updateuser --id 4 --username jef --password jef --role accountant
 1733135015922:login --username robin --password pass
 1733135033864:deletespecificuser --id 4
+1733136881350:login --username robin --password pass
+1733136889828:getallusers
+1733136920650:getspecificuser --id 3
+1733136988671:createnewuser --id 4 --username bob --password bob --role intern
+1733137035096:updateuser --id 4 --username jef --password bob --role intern
+1733137060730:deletespecificuser --id 4
