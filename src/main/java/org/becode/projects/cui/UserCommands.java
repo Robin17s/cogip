@@ -37,15 +37,15 @@ public class UserCommands {
 	
 	@ShellMethod(key="getallusers", value="Get complete list of users from database")
 	public String getAllUsers() {
-		return getRequest(BASE_URL + "/users");
+		return getAndDeleteRequest(BASE_URL + "/users", "get");
 	}
 	
 	@ShellMethod(key="getspecificuser", value="get info of user of given id")
 	public String getSpecificUser(@ShellOption long id) {
-		return getRequest(BASE_URL + "/users/" + id);
+		return getAndDeleteRequest(BASE_URL + "/users/" + id, "get");
 	}
 	
-	private String getRequest(String url) {
+	private String getAndDeleteRequest(String url, String request) {
 		if(token == null) {
 			return "You must login first to do this command";
 		}
@@ -53,26 +53,52 @@ public class UserCommands {
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.set("Authorization", "Bearer " + token);
 		
-		HttpEntity<String> entity = new HttpEntity<String>(httpHeaders);
-		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+		HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
+		ResponseEntity<String> response;
+		
+		if(request.equals("get")) {
+			response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+		}
+		else {
+			response = restTemplate.exchange(url, HttpMethod.DELETE, entity, String.class);			
+		}
 		 
 		return response.getBody();
 	}
 	
 	@ShellMethod(key="createnewuser", value="make a new user and save it in database")
 	public String createNewUser(@ShellOption long id, @ShellOption String username, @ShellOption String password, @ShellOption String role) {
+		User user = new User(id, username, password, role);
+		return createAndUpdateRequest(user, BASE_URL + "/users", "post");
+	}
+	
+	@ShellMethod(key="deletespecificuser", value="Change data of a user and save it in database")
+	public String deleteSpecificUser(@ShellOption long id) {
+		return getAndDeleteRequest(BASE_URL + "/users/" + id, "delete");
+	}
+	
+	@ShellMethod(key="updateuser", value="Change data of a user and save it in database")
+	public String updateUser(@ShellOption long id, @ShellOption String username, @ShellOption String password, @ShellOption String role) {
+		User user = new User(id, username, password, role);
+		return createAndUpdateRequest(user, BASE_URL + "/users", "put");
+	}
+	
+	private String createAndUpdateRequest(User user, String url, String request) {
 		if(token == null) {
 			return "You must login first to do this command";
 		}
 		
-		User user = new User(id, username, password, role);
-		
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.set("Authorization", "Bearer " + token);
-//		httpHeaders.set("Content-Type", "application/json");
 		
 		HttpEntity<User> entity = new HttpEntity<>(user, httpHeaders);
-		ResponseEntity<String> response = restTemplate.exchange(BASE_URL + "/users", HttpMethod.POST, entity, String.class);
+		ResponseEntity<String> response;
+		if(request.equals("post")) {
+			response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);						
+		}
+		else {
+			response = restTemplate.exchange(url, HttpMethod.PUT, entity, String.class);			
+		}
 		 
 		return response.getBody();
 	}

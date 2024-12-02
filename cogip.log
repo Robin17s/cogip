@@ -52,3 +52,7 @@
 1733132174074:getspecificuser --id 2
 1733133767406:login --username robin --password pass
 1733133827851:createnewuser --id 4 --username bob --password bob --role intern
+1733134417220:login --username robin --password pass
+1733134477710:updateuser --id 4 --username jef --password jef --role accountant
+1733135015922:login --username robin --password pass
+1733135033864:deletespecificuser --id 4
