@@ -26,6 +26,17 @@ public class Contact {
 		
 	}
 
+	public Contact(int id, String firstname, String lastname, String phone, String email, LocalDateTime timestamp,
+			int contact_company_id) {
+		this.id = id;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.phone = phone;
+		this.email = email;
+		this.timestamp = timestamp;
+		this.contact_company_id = contact_company_id;
+	}
+
 	public int getId() {
 		return id;
 	}
