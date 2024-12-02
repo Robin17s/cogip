@@ -1,5 +1,8 @@
 package org.becode.projects.cui;
 
+import java.time.LocalDateTime;
+
+import org.becode.projects.domain.Invoice;
 import org.becode.projects.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -25,23 +28,14 @@ public class InvoiceCommands {
 		
 	}
 	
-	@ShellMethod(key = "login", value="Login to your account")
-	public String login(@ShellOption String username, @ShellOption String password) {
-		User user = new User(username, password);
-		
-		token =  restTemplate.postForObject(BASE_URL + "/login", user, String.class);
-		
-		return "Login successful";
+	@ShellMethod(key="getallinvoices", value="Get complete list of invoices from database")
+	public String getAllInvoices() {
+		return getAndDeleteRequest(BASE_URL + "/invoices", "get");
 	}
 	
-	@ShellMethod(key="getallusers", value="Get complete list of users from database")
-	public String getAllUsers() {
-		return getAndDeleteRequest(BASE_URL + "/users", "get");
-	}
-	
-	@ShellMethod(key="getspecificuser", value="get info of user of given id")
-	public String getSpecificUser(@ShellOption long id) {
-		return getAndDeleteRequest(BASE_URL + "/users/" + id, "get");
+	@ShellMethod(key="getspecificinvoice", value="get info of invoice of given id")
+	public String getSpecificInvoice(@ShellOption int id) {
+		return getAndDeleteRequest(BASE_URL + "/invoices/" + id, "get");
 	}
 	
 	private String getAndDeleteRequest(String url, String request) {
@@ -65,24 +59,24 @@ public class InvoiceCommands {
 		return response.getBody();
 	}
 	
-	@ShellMethod(key="createnewuser", value="make a new user and save it in database")
-	public String createNewUser(@ShellOption long id, @ShellOption String username, @ShellOption String password, @ShellOption String role) {
-		User user = new User(id, username, password, role);
-		return createAndUpdateRequest(user, BASE_URL + "/users", "post");
+	@ShellMethod(key="createnewinvoice", value="make a new invoice and save it in database")
+	public String createNewInvoice(@ShellOption int id,@ShellOption int companyId,@ShellOption int contactId) {
+		Invoice invoice = new Invoice(id, companyId, contactId, LocalDateTime.now());
+		return createAndUpdateRequest(invoice, BASE_URL + "/invoices", "post");
 	}
 	
-	@ShellMethod(key="deletespecificuser", value="Change data of a user and save it in database")
-	public String deleteSpecificUser(@ShellOption long id) {
-		return getAndDeleteRequest(BASE_URL + "/users/" + id, "delete");
+	@ShellMethod(key="deletespecificinvoice", value="Change data of an invoice and save it in database")
+	public String deleteSpecificInvoice(@ShellOption int id) {
+		return getAndDeleteRequest(BASE_URL + "/invoices/" + id, "delete");
 	}
 	
-	@ShellMethod(key="updateuser", value="Change data of a user and save it in database")
-	public String updateUser(@ShellOption long id, @ShellOption String username, @ShellOption String password, @ShellOption String role) {
-		User user = new User(id, username, password, role);
-		return createAndUpdateRequest(user, BASE_URL + "/users", "put");
+	@ShellMethod(key="updateinvoice", value="Change data of an invoice and save it in database")
+	public String updateInvoice(@ShellOption int id, @ShellOption int companyId, @ShellOption int contactId) {
+		Invoice invoice = new Invoice(id, companyId, contactId, LocalDateTime.now());
+		return createAndUpdateRequest(invoice, BASE_URL + "/invoices", "put");
 	}
 	
-	private String createAndUpdateRequest(User user, String url, String request) {
+	private String createAndUpdateRequest(Invoice invoice, String url, String request) {
 		if(token == null) {
 			return "You must login first to do this command";
 		}
@@ -90,7 +84,7 @@ public class InvoiceCommands {
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.set("Authorization", "Bearer " + token);
 		
-		HttpEntity<User> entity = new HttpEntity<>(user, httpHeaders);
+		HttpEntity<Invoice> entity = new HttpEntity<>(invoice, httpHeaders);
 		ResponseEntity<String> response;
 		if(request.equals("post")) {
 			response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);						
