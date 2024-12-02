@@ -28,9 +28,7 @@ public class UserCommands {
 	
 	@ShellMethod(key = "login", value="Login to your account")
 	public String login(@ShellOption String username, @ShellOption String password) {
-		User user = new User();
-		user.setUsername(username);
-		user.setPassword(password);
+		User user = new User(username, password);
 		
 		token =  restTemplate.postForObject(BASE_URL + "/login", user, String.class);
 		
@@ -39,21 +37,15 @@ public class UserCommands {
 	
 	@ShellMethod(key="getallusers", value="Get complete list of users from database")
 	public String getAllUsers() {
-		if(token == null) {
-			return "You must login first to do this command";
-		}
-		
-		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.set("Authorization", "Bearer " + token);
-		
-		HttpEntity<String> entity = new HttpEntity<String>(httpHeaders);
-		ResponseEntity<String> response = restTemplate.exchange(BASE_URL + "/users", HttpMethod.GET, entity, String.class);
-		 
-		return response.getBody();
+		return getRequest(BASE_URL + "/users");
 	}
 	
 	@ShellMethod(key="getspecificuser", value="get info of user of given id")
 	public String getSpecificUser(@ShellOption long id) {
+		return getRequest(BASE_URL + "/users/" + id);
+	}
+	
+	private String getRequest(String url) {
 		if(token == null) {
 			return "You must login first to do this command";
 		}
@@ -62,15 +54,27 @@ public class UserCommands {
 		httpHeaders.set("Authorization", "Bearer " + token);
 		
 		HttpEntity<String> entity = new HttpEntity<String>(httpHeaders);
-		ResponseEntity<String> response = restTemplate.exchange(BASE_URL + "/users/" + id, HttpMethod.GET, entity, String.class);
+		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 		 
 		return response.getBody();
 	}
 	
-//	private void controlIfTokenIsNull() {
-//		if(token == null) {
-//			return "You must login first to do this command";
-//		}
-//	}
+	@ShellMethod(key="createnewuser", value="make a new user and save it in database")
+	public String createNewUser(@ShellOption long id, @ShellOption String username, @ShellOption String password, @ShellOption String role) {
+		if(token == null) {
+			return "You must login first to do this command";
+		}
+		
+		User user = new User(id, username, password, role);
+		
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.set("Authorization", "Bearer " + token);
+//		httpHeaders.set("Content-Type", "application/json");
+		
+		HttpEntity<User> entity = new HttpEntity<>(user, httpHeaders);
+		ResponseEntity<String> response = restTemplate.exchange(BASE_URL + "/users", HttpMethod.POST, entity, String.class);
+		 
+		return response.getBody();
+	}
 	
 }

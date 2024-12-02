@@ -37,3 +37,18 @@
 1733126631909:getspecificuser --id 2
 1733127381719:login --username robin --password pass
 1733127409002:getspecificuser --id 2
+1733131543173:login --username robin --password pass
+1733131730185:createnewuser --id 4 --username bob --password bob --role intern
+1733131806522:login --username robin --password pass
+1733131818422:createnewuser --id 4 --username bob --password bob --role intern
+1733131850259:stacktrace
+1733131882586:getallusers
+1733131899999:getspecificuser --id 3
+1733132051330:login --username robin --password pass
+1733132057554:getallusers
+1733132069642:getspecificuser
+1733132107564:getspecificuser --id 2
+1733132160830:login --username robin --password pass
+1733132174074:getspecificuser --id 2
+1733133767406:login --username robin --password pass
+1733133827851:createnewuser --id 4 --username bob --password bob --role intern

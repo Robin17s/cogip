@@ -47,20 +47,29 @@ public class UserService {
 	}
 	
 	public String createNewUser(User user) {
+		if(controlIdExists(user.getId())) {
+			return "User with this id already exists";
+		}
 		user.setPassword(encoder.encode(user.getPassword()));
 		rep.save(user);
 		return "New user successfully created";
 	}
 	
 	public String deleteUser(long id) {
-		rep.deleteById(id);
-		return String.format("User with id %d successfully removed", id);
+		if(controlIdExists(id)) {
+			rep.deleteById(id);
+			return String.format("User with id %d successfully removed", id);
+		}
+		return "User with this id doesn't exists";
 	}
 	
 	public String updateUser(User user) {
-		user.setPassword(encoder.encode(user.getPassword()));
-		rep.save(user);
-		return "User successfully updated";
+		if(controlIdExists(user.getId())) {
+			user.setPassword(encoder.encode(user.getPassword()));
+			rep.save(user);
+			return "User successfully updated";
+		}
+		return "User with this id doesn't exists";
 	}
 
 	public String verify(User user) {
@@ -70,5 +79,9 @@ public class UserService {
 		}
 		
 		return "fail";
+	}
+	
+	private boolean controlIdExists(long id) {
+		return rep.existsById(id);
 	}
 }
