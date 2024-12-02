@@ -22,21 +22,37 @@ public class InvoiceService {
 	}
 	
 	public Invoice getSpecificInvoice(int id) {
-		return rep.getById(id);
+		if(controlIdExists(id)) {
+			return rep.getById(id);			
+		}
+		throw new IllegalArgumentException(String.format("Invoice with id %d doesn't exist", id));
 	}
 	
 	public String createNewInvoice(Invoice invoice) {
+		if(controlIdExists(invoice.getId())) {
+			return "Invoice with this id already exists";
+		}
 		rep.save(invoice);
 		return "New invoice successfully created";
 	}
 	
 	public String deleteInvoice(int id) {
-		rep.deleteById(id);
-		return String.format("Invoice with id %d successfully removed", id);
+		if(controlIdExists(id)) {
+			rep.deleteById(id);
+			return String.format("Invoice with id %d successfully removed", id);			
+		}
+		return "Invoice with this id doesn't exists";
 	}
 	
 	public String updateInvoice(Invoice invoice) {
-		rep.save(invoice);
-		return "Invoice successfully updated";
+		if(controlIdExists(invoice.getId())) {
+			rep.save(invoice);
+			return "Invoice successfully updated";			
+		}
+		return "Invoice with this id doesn't exists";
+	}
+	
+	private boolean controlIdExists(int id) {
+		return rep.existsById(id);
 	}
 }
