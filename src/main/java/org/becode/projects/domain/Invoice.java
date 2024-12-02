@@ -22,6 +22,13 @@ public class Invoice {
 	public Invoice() {
 		
 	}
+	
+	public Invoice(int id, int companyId, int contactId, LocalDateTime date) {
+		this.id = id;
+		this.invoice_company_id = companyId;
+		this.invoice_contact_id = contactId;
+		this.timestamp = date;
+	}
 
 	public int getId() {
 		return id;

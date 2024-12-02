@@ -34,16 +34,10 @@ public class UserService {
 	}
 	
 	public User getSpecificUser(long id) {
-//		User user = rep.getById(id);
-//		try {
-//			if(user == null) {
-//				throw new IllegalArgumentException(String.format("User with id %d doesn't exist", id));
-//			}
-//		} catch (Exception e) {
-//			System.out.println("error: " + e.getMessage());
-//		}
-//		return user;
-		return rep.getById(id);
+		if(controlIdExists(id)) {
+			return rep.getById(id);			
+		}
+		throw new IllegalArgumentException(String.format("User with id %d doesn't exist", id));
 	}
 	
 	public String createNewUser(User user) {
