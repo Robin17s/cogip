@@ -76,3 +76,43 @@
 1733149631700:createnewcompany --id 3 --name vvf --country china --vat hb --type client
 1733149708612:updatecompany --id 3 --name vvf --country france --vat hb --type client
 1733149731360:deletespecificcompany --id 3
+1733153410291:login --username robin --password pass
+1733153419085:getallcontacts
+1733153469091:getspecificcontact --id 1
+1733153597478:createnewcontact --id 4 --firstname urfh --lastname jfr -- phone 156 --email erbh@telenet.be --companyid 1
+1733153738019:stacktrace
+1733154012312:createnewcontact --id 4 --firstname urfh --lastname jfr -- phone 156 --email erbh --companyid 1
+1733301297284:login --username robin --password pass
+1733301311062:getallcontacts
+1733301482980:getspecificcontact --id 1
+1733302440313:createnewcontact --id 4 --firstname rkne --lastname rif --phone 1896 --email feer@telenet.be --companyid 1
+1733302530750:updatecontact --id 4 --firstname peter --lastname rif --phone 1896 --email feer@telenet.be --companyid 1
+1733302571948:deletespecificcontact --id 4
+1733305279410:login --username robin --password pass
+1733305304881:getallcompanies
+1733305668299:login --username robin --password pass
+1733305682206:getallcompanies
+1733306287012:login --username robin --password pass
+1733306293115:getallcompanies
+1733306345864:getallcompanies --type client
+1733307688254:login --username robin --password pass
+1733307705966:getallcompanies --type client
+1733317127101:@Secured({"ROLE_ADMIN", "ROLE_ACCOUNTANT", "ROLE_INTERN"})
+1733317127113:GetMapping("/companies")
+1733317127123:ublic String getAllCompanies(@RequestParam(name="type", required = false) String type){
+1733317127131:String string = "";
+1733317127139:if(type != null) {
+1733317127151:for(Company com : service.getAllCompanies().stream().filter(company -> company.getType().equals(type)).toList()) {
+1733317127157:tring += com.toString() + "\\n\\n";
+1733317127164:tring = printAllRelatedContacts(string, com.getId());
+1733317127168:}
+1733317127173:else {
+1733317127178:for(Company com : service.getAllCompanies()) {
+1733317127183:tring += com.toString() + "\\n\\n";
+1733317127188:tring = printAllRelatedContacts(string, com.getId());
+1733317127192:}
+1733317127198:return string;
+1733317168314:help
+1733317222260:login --username robin --password pass
+1733317237305:getallcompanies
+1733317267292:getallcompanies --type provider

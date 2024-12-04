@@ -30,8 +30,12 @@ public class CompanyCommands {
 	}
 	
 	@ShellMethod(key="getallcompanies", value="Get complete list of companies from database")
-	public String getAllCompanies() {
-		return getAndDeleteRequest(BASE_URL + "/companies", "get");
+	public String getAllCompanies(@ShellOption(defaultValue = "") String type) {
+		String url = BASE_URL + "/companies";
+		if(type.equalsIgnoreCase("client") || type.equalsIgnoreCase("provider")) {
+			url += "?type=" + type;
+		}
+		return getAndDeleteRequest(url, "get", type);
 	}
 	
 	@ShellMethod(key="getspecificcompany", value="get info of company of given id")
@@ -39,7 +43,7 @@ public class CompanyCommands {
 		return getAndDeleteRequest(BASE_URL + "/companies/" + id, "get");
 	}
 	
-	private String getAndDeleteRequest(String url, String request) {
+	private String getAndDeleteRequest(String url, String request, String... type) {
 		if(userCommands.getToken() == null) {
 			return "You must login first to do this command";
 		}
