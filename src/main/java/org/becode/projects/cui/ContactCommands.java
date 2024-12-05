@@ -34,7 +34,7 @@ public class ContactCommands {
 		return getAndDeleteRequest(BASE_URL + "/contacts", "get");
 	}
 	
-	@ShellMethod(key="getspecificcontact", value="get info of contact of given id")
+	@ShellMethod(key="getcontact", value="get info of contact of given id")
 	public String getSpecificContact(@ShellOption int id) {
 		return getAndDeleteRequest(BASE_URL + "/contacts/" + id, "get");
 	}
@@ -60,19 +60,19 @@ public class ContactCommands {
 		return response.getBody();
 	}
 	
-	@ShellMethod(key="createnewcontact", value="make a new contact and save it in database")
-	public String createNewContact(@ShellOption int id,@ShellOption String firstname,@ShellOption String lastname, @ShellOption String phone, @ShellOption String email, @ShellOption int companyid) {
+	@ShellMethod(key="createcontact", value="make a new contact and save it in database")
+	public String createNewContact(@ShellOption int id,@ShellOption(value= {"--firstname", "-fn"}) String firstname,@ShellOption(value= {"--lastname", "-ln"}) String lastname, @ShellOption(value= {"--phone", "-p"}) String phone, @ShellOption(value= {"--email", "-e"}) String email, @ShellOption(value= {"--companyid", "-cid"}) int companyid) {
 		Contact contact = new Contact(id, firstname, lastname, phone, email, companyid, LocalDateTime.now());
 		return createAndUpdateRequest(contact, BASE_URL + "/contacts", "post");
 	}
 	
-	@ShellMethod(key="deletespecificcontact", value="Change data of an contact and save it in database")
+	@ShellMethod(key="deletecontact", value="Change data of an contact and save it in database")
 	public String deleteSpecificContact(@ShellOption int id) {
 		return getAndDeleteRequest(BASE_URL + "/contacts/" + id, "delete");
 	}
 	
 	@ShellMethod(key="updatecontact", value="Change data of an contact and save it in database")
-	public String updateContact(@ShellOption int id,@ShellOption String firstname,@ShellOption String lastname, @ShellOption String phone, @ShellOption String email, @ShellOption int companyid) {
+	public String updateContact(@ShellOption int id,@ShellOption(value= {"--firstname", "-fn"}) String firstname,@ShellOption(value= {"--lastname", "-ln"}) String lastname, @ShellOption(value= {"--phone", "-p"}) String phone, @ShellOption(value= {"--email", "-e"}) String email, @ShellOption(value= {"--companyid", "-cid"}) int companyid) {
 		Contact contact = new Contact(id, firstname, lastname, phone, email, companyid, LocalDateTime.now());
 		return createAndUpdateRequest(contact, BASE_URL + "/contacts", "put");
 	}

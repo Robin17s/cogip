@@ -30,7 +30,7 @@ public class CompanyCommands {
 	}
 	
 	@ShellMethod(key="getallcompanies", value="Get complete list of companies from database")
-	public String getAllCompanies(@ShellOption(defaultValue = "") String type) {
+	public String getAllCompanies(@ShellOption(defaultValue = "", value= {"--type", "-t"}) String type) {
 		String url = BASE_URL + "/companies";
 		if(type.equalsIgnoreCase("client") || type.equalsIgnoreCase("provider")) {
 			url += "?type=" + type;
@@ -38,7 +38,7 @@ public class CompanyCommands {
 		return getAndDeleteRequest(url, "get", type);
 	}
 	
-	@ShellMethod(key="getspecificcompany", value="get info of company of given id")
+	@ShellMethod(key="getcompany", value="get info of company of given id")
 	public String getSpecificCompany(@ShellOption int id) {
 		return getAndDeleteRequest(BASE_URL + "/companies/" + id, "get");
 	}
@@ -64,19 +64,19 @@ public class CompanyCommands {
 		return response.getBody();
 	}
 	
-	@ShellMethod(key="createnewcompany", value="make a new company and save it in database")
-	public String createNewCompany(@ShellOption int id,@ShellOption String name,@ShellOption String country, @ShellOption String vat, @ShellOption String type) {
+	@ShellMethod(key="createcompany", value="make a new company and save it in database")
+	public String createNewCompany(@ShellOption int id,@ShellOption(value= {"--name", "-n"}) String name,@ShellOption(value= {"--country", "-c"}) String country, @ShellOption(value= {"--vat", "-v"}) String vat, @ShellOption(value= {"--type", "-t"}) String type) {
 		Company company = new Company(id, name, country, vat, type, LocalDateTime.now());
 		return createAndUpdateRequest(company, BASE_URL + "/companies", "post");
 	}
 	
-	@ShellMethod(key="deletespecificcompany", value="Change data of an company and save it in database")
+	@ShellMethod(key="deletecompany", value="Change data of an company and save it in database")
 	public String deleteSpecificCompany(@ShellOption int id) {
 		return getAndDeleteRequest(BASE_URL + "/companies/" + id, "delete");
 	}
 	
 	@ShellMethod(key="updatecompany", value="Change data of an company and save it in database")
-	public String updateCompany(@ShellOption int id,@ShellOption String name,@ShellOption String country, @ShellOption String vat, @ShellOption String type) {
+	public String updateCompany(@ShellOption int id,@ShellOption(value= {"--name", "-n"}) String name,@ShellOption(value= {"--country", "-c"}) String country, @ShellOption(value= {"--vat", "-v"}) String vat, @ShellOption(value= {"--type", "-t"}) String type) {
 		Company company = new Company(id, name, country, vat, type, LocalDateTime.now());
 		return createAndUpdateRequest(company, BASE_URL + "/companies", "put");
 	}

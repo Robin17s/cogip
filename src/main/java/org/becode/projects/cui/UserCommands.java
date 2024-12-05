@@ -27,7 +27,7 @@ public class UserCommands {
 	}
 	
 	@ShellMethod(key = "login", value="Login to your account")
-	public String login(@ShellOption String username, @ShellOption String password) {
+	public String login(@ShellOption(value= {"--username", "-u"}) String username, @ShellOption(value= {"--password", "-p"}) String password) {
 		User user = new User(username, password);
 		
 		token =  restTemplate.postForObject(BASE_URL + "/login", user, String.class);
@@ -40,7 +40,7 @@ public class UserCommands {
 		return getAndDeleteRequest(BASE_URL + "/users", "get");
 	}
 	
-	@ShellMethod(key="getspecificuser", value="get info of user of given id")
+	@ShellMethod(key="getuser", value="get info of user of given id")
 	public String getSpecificUser(@ShellOption long id) {
 		return getAndDeleteRequest(BASE_URL + "/users/" + id, "get");
 	}
@@ -66,19 +66,19 @@ public class UserCommands {
 		return response.getBody();
 	}
 	
-	@ShellMethod(key="createnewuser", value="make a new user and save it in database")
-	public String createNewUser(@ShellOption long id, @ShellOption String username, @ShellOption String password, @ShellOption String role) {
+	@ShellMethod(key="createuser", value="make a new user and save it in database")
+	public String createNewUser(@ShellOption long id, @ShellOption(value= {"--username", "-u"}) String username, @ShellOption(value= {"--password", "-p"}) String password, @ShellOption(value= {"--role", "-r"}) String role) {
 		User user = new User(id, username, password, role);
 		return createAndUpdateRequest(user, BASE_URL + "/users", "post");
 	}
 	
-	@ShellMethod(key="deletespecificuser", value="Change data of a user and save it in database")
+	@ShellMethod(key="deleteuser", value="Change data of a user and save it in database")
 	public String deleteSpecificUser(@ShellOption long id) {
 		return getAndDeleteRequest(BASE_URL + "/users/" + id, "delete");
 	}
 	
 	@ShellMethod(key="updateuser", value="Change data of a user and save it in database")
-	public String updateUser(@ShellOption long id, @ShellOption String username, @ShellOption String password, @ShellOption String role) {
+	public String updateUser(@ShellOption long id, @ShellOption(value= {"--username", "-u"}) String username, @ShellOption(value= {"--password", "-p"}) String password, @ShellOption(value= {"--role", "-r"}) String role) {
 		User user = new User(id, username, password, role);
 		return createAndUpdateRequest(user, BASE_URL + "/users", "put");
 	}

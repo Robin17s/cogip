@@ -34,7 +34,7 @@ public class InvoiceCommands {
 		return getAndDeleteRequest(BASE_URL + "/invoices", "get");
 	}
 	
-	@ShellMethod(key="getspecificinvoice", value="get info of invoice of given id")
+	@ShellMethod(key="getinvoice", value="get info of invoice of given id")
 	public String getSpecificInvoice(@ShellOption int id) {
 		return getAndDeleteRequest(BASE_URL + "/invoices/" + id, "get");
 	}
@@ -60,19 +60,19 @@ public class InvoiceCommands {
 		return response.getBody();
 	}
 	
-	@ShellMethod(key="createnewinvoice", value="make a new invoice and save it in database")
-	public String createNewInvoice(@ShellOption int id,@ShellOption int companyid,@ShellOption int contactid) {
+	@ShellMethod(key="createinvoice", value="make a new invoice and save it in database")
+	public String createNewInvoice(@ShellOption int id,@ShellOption(value= {"--companyid", "-comid"}) int companyid,@ShellOption(value= {"--contactid", "-conid"}) int contactid) {
 		Invoice invoice = new Invoice(id, companyid, contactid, LocalDateTime.now());
 		return createAndUpdateRequest(invoice, BASE_URL + "/invoices", "post");
 	}
 	
-	@ShellMethod(key="deletespecificinvoice", value="Change data of an invoice and save it in database")
+	@ShellMethod(key="deleteinvoice", value="Change data of an invoice and save it in database")
 	public String deleteSpecificInvoice(@ShellOption int id) {
 		return getAndDeleteRequest(BASE_URL + "/invoices/" + id, "delete");
 	}
 	
 	@ShellMethod(key="updateinvoice", value="Change data of an invoice and save it in database")
-	public String updateInvoice(@ShellOption int id, @ShellOption int companyid, @ShellOption int contactid) {
+	public String updateInvoice(@ShellOption int id, @ShellOption(value= {"--companyid", "-comid"}) int companyid, @ShellOption(value= {"--contactid", "-conid"}) int contactid) {
 		Invoice invoice = new Invoice(id, companyid, contactid, LocalDateTime.now());
 		return createAndUpdateRequest(invoice, BASE_URL + "/invoices", "put");
 	}

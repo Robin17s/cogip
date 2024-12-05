@@ -116,3 +116,36 @@
 1733317222260:login --username robin --password pass
 1733317237305:getallcompanies
 1733317267292:getallcompanies --type provider
+1733320440065:login --username robin --password pass
+1733320462526:getallcompanies --type provider
+1733320482503:getallcompanies -t provider
+1733323363444:help
+1733323383055:help login
+1733323434042:login -u robin -p pass
+1733323521644:login --username robin --password pass
+1733323565175:login -u robin -p pass
+1733323655691:login --username robin --password pass
+1733323743791:createuser --id 4 -u bob -p bob -r admin
+1733327315164:login -u robin -p password
+1733327418566:login -u robin -p pass
+1733327431081:login -u robin -password pass
+1733327447627:login -u robin --password pass
+1733327481715:login --username robin -p pass
+1733328800595:login -u robin -p pass
+1733329914858:login --username robin -p pass
+1733329924310:login --username robin -password pass
+1733329933208:login --username robin --password pass
+1733329998619:createuser --id -u bob -p bob -r admin
+1733330016487:createuser --id 4 -u bob -p bob -r admin
+1733385485229:login -u robin -p pass
+1733385823453:login -u robin -pa pass
+1733385997968:login -u robin -m pass
+1733386828789:login -u bob --password pass
+1733386991783:login -u robin -p pass
+1733388727332:login -u=robin -p=pass
+1733388775456:login --username robin --password pass
+1733389649228:<dependency>
+1733389649248:</dependency>
+1733389679664:login -u robin -p pass
+1733390374461:createuser --id 4 -u bob -p bob -r admin
+1733390420723:deleteuser --id 4
